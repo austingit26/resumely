@@ -1,34 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/providers/ReduxProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const playfair = Playfair_Display({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-heading",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Resumely",
-  description: "Create professional ATS-friendly resumes with a simple mobile-first resume builder. Build, edit, export PDF, and import JSON anytime.",
+  description:
+    "Create professional ATS-friendly resumes with a simple mobile-first resume builder. Build, edit, export PDF, and import JSON anytime.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
+    <html lang="en" className={`${playfair.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col bg-white text-slate-900">
         <ReduxProvider>{children}</ReduxProvider>
       </body>
     </html>

@@ -80,23 +80,39 @@ export default function PersonalStep() {
       {/* MAIN INFO */}
       <Card className="p-4 space-y-3">
 
-        <div className="grid grid-cols-2 gap-2">
-          <Input
-            placeholder="First Name"
-            value={personal.firstName}
-            onChange={(e) =>
-              updateField('firstName', e.target.value)
-            }
-          />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <Input
+          placeholder="First Name"
+          value={personal.firstName}
+          onChange={(e) =>
+            updateField('firstName', e.target.value)
+          }
+        />
 
-          <Input
-            placeholder="Last Name"
-            value={personal.lastName}
-            onChange={(e) =>
-              updateField('lastName', e.target.value)
-            }
-          />
-        </div>
+        <Input
+          placeholder="Middle Name"
+          value={personal.middleName}
+          onChange={(e) =>
+            updateField('middleName', e.target.value)
+          }
+        />
+
+        <Input
+          placeholder="Last Name"
+          value={personal.lastName}
+          onChange={(e) =>
+            updateField('lastName', e.target.value)
+          }
+        />
+
+        <Input
+          placeholder="Suffix (Jr, Sr, III)"
+          value={personal.suffix ?? ''}
+          onChange={(e) =>
+            updateField('suffix', e.target.value)
+          }
+        />
+      </div>
 
         <Input
           placeholder="Email"
