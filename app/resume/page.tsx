@@ -7,6 +7,7 @@ import Navbar from '@/components/common/navbar';
 import { Button } from '@/components/ui/button';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setStep } from '@/store/slices/resumeSlice';
+import { ChevronLeft, ChevronRight, FileDown, ScanEye, SquarePen } from 'lucide-react';
 
 export default function Form() {
   const dispatch = useAppDispatch();
@@ -35,9 +36,9 @@ export default function Form() {
       {/* NAVBAR */}
       <Navbar
         rightSlot={
-          <div className="text-sm text-black font-semibold flex sm:hidden">
+          <Button className="text-sm text-black font-semibold flex sm:hidden bg-white">
             Step {safeStep + 1} / {STEPS_LENGTH}
-          </div>
+          </Button>
         }
       />
 
@@ -80,10 +81,12 @@ export default function Form() {
           onClick={() => setShowPreview((v) => !v)}
           className="sm:hidden bg-secondary-500 text-secondary-900 flex min-w-full sm:min-w-32"
         >
+          {showPreview ? <SquarePen/> : <ScanEye />}
           {showPreview ? 'Edit' : 'Preview'}
         </Button>
-        <div className='flex items-center justify-between w-full'>
-          <Button variant="outline" onClick={prevStep} disabled={safeStep === 0 || showPreview} className='min-w-1/2 sm:min-w-32'>
+        <div className='flex items-center justify-between gap-x-2 w-full'>
+          <Button variant="outline" onClick={prevStep} disabled={safeStep === 0 || showPreview} className='flex-1 sm:flex-0 sm:min-w-32'>
+            <ChevronLeft />
             Back
           </Button>
 
@@ -91,8 +94,10 @@ export default function Form() {
             Step {safeStep + 1} / {STEPS_LENGTH}
           </div>
 
-          <Button onClick={nextStep} className='min-w-1/2 sm:min-w-32' disabled={showPreview}>
+          <Button onClick={nextStep} className='flex-1 sm:flex-0 sm:min-w-32' disabled={showPreview}>
+            {safeStep === STEPS_LENGTH - 1 && <FileDown />}
             {safeStep === STEPS_LENGTH - 1 ? 'Download' : 'Next'}
+            {safeStep !== STEPS_LENGTH - 1 && <ChevronRight />}
           </Button>
         </div>
       </div>
