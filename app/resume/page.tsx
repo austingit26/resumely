@@ -35,10 +35,8 @@ export default function Form() {
       {/* NAVBAR */}
       <Navbar
         rightSlot={
-          <div>
-            <div className="text-sm text-black font-semibold flex sm:hidden">
-              Step {safeStep + 1} / {STEPS_LENGTH}
-            </div>
+          <div className="text-sm text-black font-semibold flex sm:hidden">
+            Step {safeStep + 1} / {STEPS_LENGTH}
           </div>
         }
       />
@@ -85,7 +83,7 @@ export default function Form() {
           {showPreview ? 'Edit' : 'Preview'}
         </Button>
         <div className='flex items-center justify-between w-full'>
-          <Button variant="outline" onClick={prevStep} disabled={safeStep === 0} className='min-w-1/2 sm:min-w-32'>
+          <Button variant="outline" onClick={prevStep} disabled={safeStep === 0 || showPreview} className='min-w-1/2 sm:min-w-32'>
             Back
           </Button>
 
@@ -93,7 +91,7 @@ export default function Form() {
             Step {safeStep + 1} / {STEPS_LENGTH}
           </div>
 
-          <Button onClick={nextStep} className='min-w-1/2 sm:min-w-32'>
+          <Button onClick={nextStep} className='min-w-1/2 sm:min-w-32' disabled={showPreview}>
             {safeStep === STEPS_LENGTH - 1 ? 'Download' : 'Next'}
           </Button>
         </div>
