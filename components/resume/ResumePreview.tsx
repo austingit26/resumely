@@ -180,7 +180,10 @@ export default function ResumePreview() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white p-6 text-sm text-black space-y-8">
+    <div
+      id="resume-preview"
+      className="max-w-4xl mx-auto bg-white p-6 text-sm text-black space-y-8"
+    >
       {sectionOrder.map((section) => (
         <div key={section}>{renderSection(section)}</div>
       ))}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ResumeStepper from '@/components/resume/ResumeStepper';
 import ResumePreview from '@/components/resume/ResumePreview';
 import Navbar from '@/components/common/navbar';
@@ -8,9 +8,13 @@ import { Button } from '@/components/ui/button';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setStep } from '@/store/slices/resumeSlice';
 import { ChevronLeft, ChevronRight, FileDown, ScanEye, SquarePen } from 'lucide-react';
+import { pdf } from '@react-pdf/renderer';
+import ResumePDF from '@/components/pdf/ResumePDF';
+
 
 export default function Form() {
   const dispatch = useAppDispatch();
+  const resume = useAppSelector((state) => state.resume);
   const step = useAppSelector((state) => state.resume.step ?? 0);
 
   const [showPreview, setShowPreview] = useState(false);
@@ -18,9 +22,14 @@ export default function Form() {
   const STEPS_LENGTH = 6;
   const safeStep = Math.min(Math.max(step, 0), STEPS_LENGTH - 1);
 
-  const nextStep = () => {
+  const nextStep = async () => {
     if (safeStep < STEPS_LENGTH - 1) {
       dispatch(setStep(safeStep + 1));
+    }
+    if (safeStep === STEPS_LENGTH - 1) {
+      console.log('DOWNLOADING...');
+      await downloadResume()
+      return;
     }
   };
 
@@ -29,6 +38,32 @@ export default function Form() {
       dispatch(setStep(safeStep - 1));
     }
   };
+
+  const downloadResume = async () => {
+    const blob = await pdf(<ResumePDF resume={resume} />).toBlob();
+    const url = URL.createObjectURL(blob);
+    const { personal } = resume;
+
+    const first = personal?.firstName?.trim();
+    const middle = personal?.middleName?.trim();
+    const last = personal?.lastName?.trim();
+    const suffix = personal?.suffix?.trim();
+    const nameParts = [last, suffix, first, middle].filter(Boolean);
+
+    // fallback if nothing exists
+    const filename = nameParts.length > 0 ? `${nameParts.join(' ')}.pdf` : 'resume.pdf';
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+
+    URL.revokeObjectURL(url);
+  };
+
+  useEffect(() => {
+    dispatch(setStep(0));
+  }, [dispatch]);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
@@ -51,7 +86,15 @@ export default function Form() {
           {!showPreview ? (
             <ResumeStepper />
           ) : (
-            <div className="bg-white border rounded-lg p-4">
+            <div
+              id="resume-pdf"
+              className="bg-white text-black p-6"
+              style={{
+                color: '#000',
+                backgroundColor: '#fff',
+                fontFamily: 'Arial, sans-serif',
+              }}
+            >
               <ResumePreview />
             </div>
           )}
