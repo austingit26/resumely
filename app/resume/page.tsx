@@ -35,17 +35,16 @@ export default function Form() {
       {/* NAVBAR */}
       <Navbar
         rightSlot={
-          <Button
-            onClick={() => setShowPreview((v) => !v)}
-            className="lg:hidden bg-primary-500 text-white"
-          >
-            {showPreview ? 'Edit' : 'Preview'}
-          </Button>
+          <div>
+            <div className="text-sm text-black font-semibold flex sm:hidden">
+              Step {safeStep + 1} / {STEPS_LENGTH}
+            </div>
+          </div>
         }
       />
 
       {/* MAIN AREA */}
-      <div className="flex flex-1 p-4 pb-24 bg-secondary-500">
+      <div className="flex flex-1 p-4 pb-24 bg-slate-100">
 
         {/* MOBILE VIEW SWITCH */}
         <div className="w-full lg:hidden">
@@ -78,18 +77,26 @@ export default function Form() {
       </div>
 
       {/* FOOTER NAV */}
-      <div className="fixed bottom-0 left-0 right-0 bg-secondary-500 px-6 py-3 flex justify-between items-center">
-        <Button variant="outline" onClick={prevStep} disabled={safeStep === 0} className='min-w-32'>
-          Back
+      <div className="fixed bottom-0 left-0 right-0 bg-white px-6 py-3 flex flex-col sm:flex-row justify-between items-center border-t border-gray-200 gap-1.5">
+        <Button
+          onClick={() => setShowPreview((v) => !v)}
+          className="sm:hidden bg-secondary-500 text-secondary-900 flex min-w-full sm:min-w-32"
+        >
+          {showPreview ? 'Edit' : 'Preview'}
         </Button>
+        <div className='flex items-center justify-between w-full'>
+          <Button variant="outline" onClick={prevStep} disabled={safeStep === 0} className='min-w-1/2 sm:min-w-32'>
+            Back
+          </Button>
 
-        <div className="text-sm text-black font-semibold">
-          Step {safeStep + 1} / {STEPS_LENGTH}
+          <div className="text-sm text-black font-semibold sm:flex hidden">
+            Step {safeStep + 1} / {STEPS_LENGTH}
+          </div>
+
+          <Button onClick={nextStep} className='min-w-1/2 sm:min-w-32'>
+            {safeStep === STEPS_LENGTH - 1 ? 'Download' : 'Next'}
+          </Button>
         </div>
-
-        <Button onClick={nextStep} className='min-w-32'>
-          {safeStep === STEPS_LENGTH - 1 ? 'Download' : 'Next'}
-        </Button>
       </div>
 
     </div>

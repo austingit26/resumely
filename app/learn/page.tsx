@@ -13,7 +13,7 @@ import Navbar from '@/components/common/navbar';
 
 const LearnPage = () => {
   return (
-    <div className="min-h-screen bg-secondary-500">
+    <div className="min-h-screen bg-white">
 
       {/* NAVBAR */}
       <Navbar
@@ -50,7 +50,7 @@ const LearnPage = () => {
       {/* WHAT IS ATS */}
       <section className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-        <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
+        <div className="bg-secondary-500 rounded-3xl border border-slate-200 p-8 shadow-sm">
 
           <div className="w-14 h-14 rounded-2xl bg-primary-50 flex items-center justify-center text-primary-500">
             <ScanSearch size={28} />
@@ -79,7 +79,7 @@ const LearnPage = () => {
 
         </div>
 
-        <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
+        <div className="bg-secondary-500 rounded-3xl border border-slate-200 p-8 shadow-sm">
 
           <div className="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center text-red-500">
             <FileCheck size={28} />
@@ -165,7 +165,7 @@ const LearnPage = () => {
 
         <div className="max-w-4xl mx-auto bg-primary-500 rounded-3xl p-10 text-center text-white">
 
-          <h2 className="text-3xl font-bold">
+          <h2 className="text-3xl font-bold text-secondary-600">
             Ready to build your ATS-friendly resume?
           </h2>
 

@@ -13,7 +13,7 @@ import Navbar from '@/components/common/navbar';
 
 const Landing = () => {
   return (
-    <div className="min-h-screen bg-secondary-500 flex flex-col">
+    <div className="min-h-screen flex flex-col">
 
       {/* HEADER */}
       <Navbar />
@@ -33,28 +33,24 @@ const Landing = () => {
 
         {/* CTA */}
         <div className="mt-8 flex flex-col sm:flex-row gap-3">
-
-        <Link
-          href="/resume"
-          className="px-6 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition font-medium"
-        >
-          Build Resume Free
-        </Link>
-
           <Link
             href="/learn"
             className="px-6 py-3 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition font-medium"
           >
             Learn More
           </Link>
-
+          <Link
+            href="/resume"
+            className="px-6 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition font-medium"
+          >
+            Build Resume Free
+          </Link>
         </div>
 
       </section>
 
       {/* BENEFITS */}
       <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 px-6 mt-16 max-w-6xl mx-auto w-full">
-
         <Card
           icon={<FileText size={22} />}
           title="ATS-Friendly"
@@ -82,8 +78,7 @@ const Landing = () => {
       </section>
 
       {/* STATS */}
-      <section className="mt-20 bg-white/60 py-12 border-y border-slate-200">
-
+      <section className="mt-20 bg-secondary-500 py-12 border-y border-slate-200">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
 
           <Stat

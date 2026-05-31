@@ -10,7 +10,7 @@ type NavbarProps = {
 
 const Navbar = ({ rightSlot }: NavbarProps) => {
   return (
-    <div className="sticky top-0 z-10 bg-secondary-500 px-6 py-3 flex items-center justify-between select-none">
+    <div className="sticky top-0 z-10 bg-white px-6 py-3 flex items-center justify-between select-none">
       
       {/* LEFT: LOGO */}
       <Link href="/" className="flex items-center gap-3">
