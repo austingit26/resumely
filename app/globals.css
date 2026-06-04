@@ -2,39 +2,31 @@
 @import "tw-animate-css";
 
 @theme {
-  --color-primary: #285CCC;
-  --color-primary-50:  #eaf1ff;
-  --color-primary-100: #c9dbff;
-  --color-primary-200: #a6c3ff;
-  --color-primary-300: #7fa9ff;
-  --color-primary-400: #5c93ff;
-  --color-primary-500: #285CCC;
-  --color-primary-600: #204bb3;
-  --color-primary-700: #193a8c;
-  --color-primary-800: #122a66;
-  --color-primary-900: #0b1a40;
-  --color-primary-950: #070f26;
+  --color-primary: #9e0d03;
+  --color-primary-50:  #fff1f0;
+  --color-primary-100: #ffe0de;
+  --color-primary-200: #ffc4bf;
+  --color-primary-300: #ff9d95;
+  --color-primary-400: #d84c42;
+  --color-primary-500: #9e0d03;
+  --color-primary-600: #8a0b02;
+  --color-primary-700: #730902;
+  --color-primary-800: #5c0701;
+  --color-primary-900: #450501;
+  --color-primary-950: #280300;
 
-  --color-secondary: #FFF9D4;
-  --color-secondary-50:  #ffffff;
-  --color-secondary-100: #fffefd;
-  --color-secondary-200: #fffdfa;
-  --color-secondary-300: #fffcf2;
-  --color-secondary-400: #fffbe3;
-  --color-secondary-500: #FFF9D4;
-  --color-secondary-600: #f0e48a;
-  --color-secondary-700: #d4c045;
-  --color-secondary-800: #a8940f;
-  --color-secondary-900: #6b5e09;
-  --color-secondary-950: #383105;
-
-  --color-background: hsl(0 0% 100%);
-  --color-foreground: hsl(222 47% 11%);
-  --color-border: hsl(214 32% 91%);
-  --radius: 0.75rem;
-
-  --color-primary-foreground: #ffffff;
-  --color-secondary-foreground: #383105;
+  --color-secondary: #fcce00;
+  --color-secondary-50:  #fffdf0;
+  --color-secondary-100: #fff9d1;
+  --color-secondary-200: #fff2a3;
+  --color-secondary-300: #ffe96b;
+  --color-secondary-400: #ffdd2e;
+  --color-secondary-500: #fcce00;
+  --color-secondary-600: #e0b600;
+  --color-secondary-700: #bd9600;
+  --color-secondary-800: #997700;
+  --color-secondary-900: #755b00;
+  --color-secondary-950: #453500;
 }
 
 
@@ -48,6 +40,10 @@
     border-color: var(--color-border);
   }
   :root {
-    background-color: var(--color-slate-950);
+    background-color: var(--color-white);
+  }
+
+  .font-title {
+    font-family: var(--font-fruktur), serif;
   }
 }
