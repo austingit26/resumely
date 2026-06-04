@@ -14,24 +14,28 @@ import Navbar from '@/components/common/navbar';
 const Landing = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      {/* FOLDER */}
-      <section className="flex flex-col items-center text-center px-6">
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/bg.webp"
+          alt="bg"
+          fill
+          priority
+          className="object-cover opacity-75"
+        />
+
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-linear-to-b from-primary-400/15 via-primary-400/5 to-transparent h-[25vh] opacity-60" />
+      </div>
+      
+      <section className="flex flex-col items-center text-center px-6 z-99">
         <div className='lg:h-[80vh] md:h-[70vh] h-[80vh] flex flex-col justify-center gap-y-12'>
-          <h2 className="text-2xl md:text-5xl font-bold max-w-3xl leading-tight text-slate-900">
+          <h2 className="text-2xl md:text-5xl font-bold max-w-3xl leading-tight text-zinc-50">
             Build resumes that pass ATS and impress recruiters.
           </h2>
-          <Image
-            src="/lines.png"
-            alt="logo"
-            width={1920}
-            height={1080}
-            priority
-            className="w-full h-auto absolute opacity-10"
-          />
           <div className='flex flex-col md:flex-row justify-center items-center gap-4 text-sm md:text-base'>
             <Link
               href="/learn"
-              className="py-2 md:py-3 md:px-6 md:w-max w-full bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition font-medium"
+              className="py-2 md:py-3 md:px-6 md:w-max w-full bg-transparent border border-zinc-600 rounded-lg hover:bg-zinc-50/5 transition font-medium"
             >
               Learn More
             </Link>
@@ -63,21 +67,13 @@ const Landing = () => {
             </section>
           </div>
         </div>
-
-
-        <p className="mt-5 text-lg max-w-2xl text-slate-700 leading-relaxed">
-          Stop getting ignored by automated hiring systems.
-          Create clean, professional, ATS-friendly resumes
-          in minutes — no design experience needed.
-        </p>
       </section>
 
    
 
       {/* STATS */}
-      <section className="mt-20 bg-secondary-500 py-12 border-y border-slate-200">
+      <section className="mt-20 bg-zinc-800/75 py-12">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-
           <Stat
             value="12,500+"
             label="Active Users"
@@ -100,11 +96,11 @@ const Landing = () => {
       {/* FOOTER CTA */}
       <section className="py-16 px-6 text-center">
 
-        <h3 className="text-2xl font-semibold text-slate-900">
+        <h3 className="text-2xl font-semibold text-zinc-200">
           Your next opportunity starts with a better resume.
         </h3>
 
-        <p className="mt-3 text-slate-600">
+        <p className="mt-3 text-zinc-400">
           Create your ATS-friendly resume today.
         </p>
       </section>
@@ -157,11 +153,11 @@ const Stat = ({
 }) => {
   return (
     <div>
-      <div className="text-3xl font-bold text-slate-900">
+      <div className="text-3xl font-bold text-secondary-600">
         {value}
       </div>
 
-      <div className="mt-1 text-slate-600">
+      <div className="mt-1 text-zinc-500">
         {label}
       </div>
 

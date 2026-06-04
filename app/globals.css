@@ -48,6 +48,6 @@
     border-color: var(--color-border);
   }
   :root {
-    background-color: var(--color-white);
+    background-color: var(--color-slate-950);
   }
 }
