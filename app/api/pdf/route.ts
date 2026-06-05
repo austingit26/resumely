@@ -178,17 +178,11 @@ export async function POST(req: Request) {
     `;
 
     // ================= PUPPETEER FIX =================
-    const browser = await puppeteer.launch(
-      isDev
-        ? {
-            headless: true,
-          }
-        : {
-            args: chromium.args,
-            executablePath: await chromium.executablePath(),
-            headless: true,
-          }
-    );
+const browser = await puppeteer.launch({
+  args: chromium.args,
+  executablePath: await chromium.executablePath(),
+  headless: true,
+});
 
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "load" });
