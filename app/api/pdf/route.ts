@@ -1,9 +1,6 @@
-import puppeteer from "puppeteer-core";
-import chromium from "@sparticuz/chromium";
+import { launchBrowser } from "@/lib/browser";
 
 export const runtime = "nodejs";
-
-const isDev = process.env.NODE_ENV !== "production";
 
 export async function POST(req: Request) {
   try {
@@ -177,14 +174,12 @@ export async function POST(req: Request) {
       </html>
     `;
 
-    // ================= PUPPETEER FIX =================
-const browser = await puppeteer.launch({
-  args: chromium.args,
-  executablePath: await chromium.executablePath(),
-  headless: true,
-});
-
+    // ========================
+    // BROWSER (FIXED)
+    // ========================
+    const browser = await launchBrowser();
     const page = await browser.newPage();
+
     await page.setContent(html, { waitUntil: "load" });
 
     const pdfBuffer = await page.pdf({
