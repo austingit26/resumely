@@ -141,7 +141,7 @@ export default function Form() {
 
           <Button onClick={nextStep} className='flex-1 sm:flex-0 sm:min-w-32 text-white' disabled={showPreview}>
             {safeStep === STEPS_LENGTH - 1 && <FileDown />}
-            {safeStep === STEPS_LENGTH - 1 ? 'Download' : 'Next'}
+            {safeStep === STEPS_LENGTH - 1 ? 'Downloads' : 'Next'}
             {safeStep !== STEPS_LENGTH - 1 && <ChevronRight />}
           </Button>
         </div>
