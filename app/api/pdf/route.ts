@@ -196,6 +196,9 @@ export async function POST(req: Request) {
       },
     });
   } catch (err: any) {
+     console.error("PDF ERROR:");
+  console.error(err);
+  console.error(err?.stack);
     return new Response(JSON.stringify({ error: err.message }), {
       status: 500,
     });
