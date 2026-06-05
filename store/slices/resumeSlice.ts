@@ -36,6 +36,7 @@ const initialState: ResumeState = {
     address: '',
     socialLinks: [],
     summary: '',
+    role: ''
   },
 
   skills: [],

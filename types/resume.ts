@@ -8,6 +8,7 @@ export interface PersonalInfo {
   address?: string;
   socialLinks: SocialLink[];
   summary: string;
+  role: string;
 }
 
 export interface SocialLink {
@@ -52,7 +53,7 @@ export interface SkillCategory {
   skills: string[];
 }
 
-export type ResumeSection = 'personal' | 'skills' | 'experience' | 'projects' | 'education';
+export type ResumeSection = 'personal' | 'experience' | 'skills' | 'education' | 'projects';
 
 export interface ResumeState {
   step: number;

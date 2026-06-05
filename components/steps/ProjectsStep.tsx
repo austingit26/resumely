@@ -25,6 +25,7 @@ export default function ProjectsStep() {
         <h2 className="text-lg font-semibold">Projects</h2>
 
         <Button
+          className='text-white'
           onClick={() =>
             dispatch(
               addProject({
@@ -44,7 +45,7 @@ export default function ProjectsStep() {
       {/* LIST */}
       <div className="space-y-4">
         {projects.map((project) => (
-          <Card key={project.id} className="p-4 space-y-3">
+          <div key={project.id} className="p-4 space-y-3 rounded-xl border border-zinc-300/50">
 
             {/* TITLE */}
             <Input
@@ -62,7 +63,7 @@ export default function ProjectsStep() {
 
             {/* DESCRIPTION */}
             <textarea
-              className="w-full border rounded p-2 text-sm"
+              className="w-full border border-zinc-200 rounded p-2 text-sm outline-none focus:border-zinc-400 focus:ring-0"
               rows={4}
               placeholder="Project Description"
               value={project.description}
@@ -131,7 +132,7 @@ export default function ProjectsStep() {
               </Button>
             </div>
 
-          </Card>
+          </div>
         ))}
       </div>
     </div>

@@ -36,20 +36,14 @@ export default function ResumeStepper() {
         return <SkillsStep />;
       case 'projects':
         return <ProjectsStep />;
-      case 'reorder':
-        return <ReorderStep />;
       default:
         return null;
     }
   };
 
   return (
-    <div className="space-y-4">
-
-      <Card className="p-4 bg-white">
+    <div className="space-y-4 p-4 bg-zinc-100/5 rounded-lg shadow-sm">
         {renderStep()}
-      </Card>
-
     </div>
   );
 }

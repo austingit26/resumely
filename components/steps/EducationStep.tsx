@@ -21,6 +21,7 @@ export default function EducationStep() {
         <h2 className="text-lg font-semibold">Education</h2>
 
         <Button
+          className='text-white'
           onClick={() =>
             dispatch(
               addEducation({
@@ -42,7 +43,7 @@ export default function EducationStep() {
       {/* LIST */}
       <div className="space-y-3">
         {education.map((edu) => (
-          <Card key={edu.id} className="p-4 space-y-3">
+          <div key={edu.id} className="p-4 space-y-3 rounded-xl border border-zinc-300/50">
             {/* DEGREE */}
             <Input
               placeholder="Degree (e.g. Bachelor Degree)"
@@ -142,7 +143,7 @@ export default function EducationStep() {
                 Remove
               </Button>
             </div>
-          </Card>
+          </div>
         ))}
       </div>
     </div>

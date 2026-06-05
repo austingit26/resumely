@@ -78,7 +78,7 @@ export default function PersonalStep() {
       </h2>
 
       {/* MAIN INFO */}
-      <Card className="p-4 space-y-3">
+      <div className="p-4 space-y-3 border border-zinc-300/50 rounded-xl">
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         <Input
@@ -115,6 +115,14 @@ export default function PersonalStep() {
       </div>
 
         <Input
+          placeholder="Job Role"
+          value={personal.role}
+          onChange={(e) =>
+            updateField('role', e.target.value)
+          }
+        />
+
+        <Input
           placeholder="Email"
           value={personal.email}
           onChange={(e) =>
@@ -139,7 +147,7 @@ export default function PersonalStep() {
         />
 
         <textarea
-          className="w-full border rounded p-2 text-sm"
+          className="w-full border border-zinc-200 rounded p-2 text-sm outline-none focus:border-zinc-400 focus:ring-0"
           rows={4}
           placeholder="Professional Summary"
           value={personal.summary}
@@ -147,20 +155,20 @@ export default function PersonalStep() {
             updateField('summary', e.target.value)
           }
         />
-      </Card>
+      </div>
 
       {/* SOCIAL LINKS */}
       <div className="flex justify-between items-center">
         <h3 className="font-medium">Social Links</h3>
 
-        <Button onClick={addSocialLink}>
+        <Button onClick={addSocialLink} className='text-white'>
           Add Link
         </Button>
       </div>
 
       <div className="space-y-3">
         {(personal.socialLinks || []).map((link, index) => (
-          <Card key={index} className="p-3 space-y-2">
+          <div key={index} className="p-3 space-y-2 border border-zinc-300/50 rounded-xl">
 
             <Input
               placeholder="Label (e.g. LinkedIn, Portfolio)"
@@ -197,7 +205,7 @@ export default function PersonalStep() {
               </Button>
             </div>
 
-          </Card>
+          </div>
         ))}
       </div>
     </div>

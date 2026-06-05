@@ -8,9 +8,6 @@ import { Button } from '@/components/ui/button';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setStep } from '@/store/slices/resumeSlice';
 import { ChevronLeft, ChevronRight, FileDown, ScanEye, SquarePen } from 'lucide-react';
-import { pdf } from '@react-pdf/renderer';
-import ResumePDF from '@/components/pdf/ResumePDF';
-
 
 export default function Form() {
   const dispatch = useAppDispatch();
@@ -19,7 +16,7 @@ export default function Form() {
 
   const [showPreview, setShowPreview] = useState(false);
 
-  const STEPS_LENGTH = 6;
+  const STEPS_LENGTH = 5;
   const safeStep = Math.min(Math.max(step, 0), STEPS_LENGTH - 1);
 
   const nextStep = async () => {
@@ -40,25 +37,31 @@ export default function Form() {
   };
 
   const downloadResume = async () => {
-    const blob = await pdf(<ResumePDF resume={resume} />).toBlob();
-    const url = URL.createObjectURL(blob);
-    const { personal } = resume;
+    const res = await fetch("/api/pdf", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(resume),
+    });
 
-    const first = personal?.firstName?.trim();
-    const middle = personal?.middleName?.trim();
-    const last = personal?.lastName?.trim();
-    const suffix = personal?.suffix?.trim();
-    const nameParts = [last, suffix, first, middle].filter(Boolean);
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+    const p = resume.personal ?? {};
+    const normalize = (value?: string) => (value || "").replace(/\./g, "").trim();
 
-    // fallback if nothing exists
-    const filename = nameParts.length > 0 ? `${nameParts.join(' ')}.pdf` : 'resume.pdf';
+    const fullName = [ normalize(p.firstName), normalize(p.middleName), normalize(p.lastName), normalize(p.suffix)]
+      .filter(Boolean).join(" ").trim().toUpperCase();
 
-    const a = document.createElement('a');
+    const fileName = fullName ? `${fullName}.pdf` : "resume.pdf";
+
+    const a = document.createElement("a");
     a.href = url;
-    a.download = filename;
-    a.click();
+    a.download = fileName;
 
-    URL.revokeObjectURL(url);
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    window.URL.revokeObjectURL(url);
   };
 
   useEffect(() => {
@@ -66,7 +69,7 @@ export default function Form() {
   }, [dispatch]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col">
 
       {/* NAVBAR */}
       <Navbar
@@ -78,8 +81,7 @@ export default function Form() {
       />
 
       {/* MAIN AREA */}
-      <div className="flex flex-1 p-4 pb-24 bg-slate-100">
-
+      <div className="flex flex-1 p-4 pb-24">
         {/* MOBILE VIEW SWITCH */}
         <div className="w-full lg:hidden">
 
@@ -88,7 +90,7 @@ export default function Form() {
           ) : (
             <div
               id="resume-pdf"
-              className="bg-white text-black p-6"
+              className="bg-white text-black p-6 border border-zinc-300 bg-white/20 rounded-lg"
               style={{
                 color: '#000',
                 backgroundColor: '#fff',
@@ -110,7 +112,7 @@ export default function Form() {
           </div>
 
           {/* RIGHT */}
-          <div className="w-1/2 bg-white border rounded-lg p-4 overflow-auto">
+          <div className="w-1/2 border border-zinc-300 bg-white/20 rounded-lg p-4 overflow-auto">
             <ResumePreview />
           </div>
 
@@ -122,7 +124,7 @@ export default function Form() {
       <div className="fixed bottom-0 left-0 right-0 bg-white px-6 py-3 flex flex-col sm:flex-row justify-between items-center border-t border-gray-200 gap-1.5">
         <Button
           onClick={() => setShowPreview((v) => !v)}
-          className="sm:hidden bg-secondary-500 text-secondary-900 flex min-w-full sm:min-w-32"
+          className="sm:hidden bg-secondary-100 border border-secondary-200 text-secondary-900 flex min-w-full sm:min-w-32"
         >
           {showPreview ? <SquarePen/> : <ScanEye />}
           {showPreview ? 'Edit' : 'Preview'}
@@ -137,7 +139,7 @@ export default function Form() {
             Step {safeStep + 1} / {STEPS_LENGTH}
           </div>
 
-          <Button onClick={nextStep} className='flex-1 sm:flex-0 sm:min-w-32' disabled={showPreview}>
+          <Button onClick={nextStep} className='flex-1 sm:flex-0 sm:min-w-32 text-white' disabled={showPreview}>
             {safeStep === STEPS_LENGTH - 1 && <FileDown />}
             {safeStep === STEPS_LENGTH - 1 ? 'Download' : 'Next'}
             {safeStep !== STEPS_LENGTH - 1 && <ChevronRight />}

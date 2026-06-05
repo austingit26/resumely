@@ -58,7 +58,7 @@ function SortableItem({
       }}
       {...attributes}
       {...listeners}
-      className="p-3 border rounded-md bg-white cursor-grab active:cursor-grabbing"
+      className="p-3 bg-secondary-200 border border-secondary-300 text-secondary-900 rounded-xl cursor-grab active:cursor-grabbing text-center"
     >
       {label}
     </div>
@@ -112,7 +112,7 @@ export default function ReorderStep() {
         </p>
       </div>
 
-      <Card className="p-4">
+      <div className="p-4 border border-zinc-300/50 rounded-xl">
         <DndContext
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
@@ -135,7 +135,7 @@ export default function ReorderStep() {
             </div>
           </SortableContext>
         </DndContext>
-      </Card>
+      </div>
     </div>
   );
 }

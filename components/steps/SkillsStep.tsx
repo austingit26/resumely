@@ -73,7 +73,7 @@ export default function SkillsStep() {
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-semibold">Skills</h2>
 
-        <Button onClick={addCategory}>
+        <Button onClick={addCategory} className='text-white'>
           Add Category
         </Button>
       </div>
@@ -81,7 +81,7 @@ export default function SkillsStep() {
       {/* CATEGORY LIST */}
       <div className="space-y-4">
         {skills.map((cat) => (
-          <Card key={cat.id} className="p-4 space-y-3">
+          <div key={cat.id} className="p-4 space-y-3 rounded-xl border border-zinc-300/50">
 
             {/* CATEGORY NAME */}
             <Input
@@ -123,7 +123,7 @@ export default function SkillsStep() {
               </Button>
             </div>
 
-          </Card>
+          </div>
         ))}
       </div>
     </div>

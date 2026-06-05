@@ -25,6 +25,7 @@ export default function ExperienceStep() {
         <h2 className="text-lg font-semibold">Experience</h2>
 
         <Button
+          className='text-white'
           onClick={() =>
             dispatch(
               addExperience({
@@ -47,7 +48,7 @@ export default function ExperienceStep() {
       {/* LIST */}
       <div className="space-y-4">
         {experience.map((exp) => (
-          <Card key={exp.id} className="p-4 space-y-3">
+          <div key={exp.id} className="p-4 space-y-3 border border-zinc-300/50 rounded-lg">
 
             {/* ROLE */}
             <Input
@@ -139,7 +140,7 @@ export default function ExperienceStep() {
 
             {/* BULLETS (simple textarea for now) */}
             <textarea
-              className="w-full border rounded p-2 text-sm"
+              className="w-full border border-zinc-200 rounded p-2 text-sm outline-none focus:border-zinc-400 focus:ring-0"
               rows={4}
               placeholder="Responsibilities (one per line)"
               value={exp.bullets.join('\n')}
@@ -168,7 +169,7 @@ export default function ExperienceStep() {
               </Button>
             </div>
 
-          </Card>
+          </div>
         ))}
       </div>
     </div>
