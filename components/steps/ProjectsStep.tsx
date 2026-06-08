@@ -10,6 +10,7 @@ import {
   updateProject,
   removeProject,
 } from '@/store/slices/resumeSlice';
+import { useEffect, useState } from 'react';
 
 export default function ProjectsStep() {
   const dispatch = useAppDispatch();
@@ -17,6 +18,22 @@ export default function ProjectsStep() {
   const projects = useAppSelector(
     (state) => state.resume.projects
   );
+
+  const [techInputs, setTechInputs] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    setTechInputs((prev) => {
+      const next = { ...prev };
+
+      projects.forEach((proj) => {
+        if (!(proj.id in next)) {
+          next[proj.id] = proj.technologies.join(', ');
+        }
+      });
+
+      return next;
+    });
+  }, [projects]);
 
   return (
     <div className="space-y-4">
@@ -79,19 +96,26 @@ export default function ProjectsStep() {
 
             {/* TECHNOLOGIES */}
             <Input
-              placeholder="Technologies (comma separated: React, Node, Tailwind)"
-              value={project.technologies.join(', ')}
-              onChange={(e) =>
+              placeholder="Tools and Technologies (comma separated)"
+              value={techInputs[project.id] ?? ''}
+              onChange={(e) => {
+                const value = e.target.value;
+
+                setTechInputs((prev) => ({
+                  ...prev,
+                  [project.id]: value,
+                }));
+
                 dispatch(
                   updateProject({
                     ...project,
-                    technologies: e.target.value
+                    technologies: value
                       .split(',')
-                      .map((t) => t.trim())
+                      .map((a) => a.trim())
                       .filter(Boolean),
                   })
-                )
-              }
+                );
+              }}
             />
 
             {/* LINK */}

@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card';
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { addEducation, updateEducation, removeEducation } from '@/store/slices/resumeSlice';
+import { useEffect, useState } from 'react';
 
 export default function EducationStep() {
   const dispatch = useAppDispatch();
@@ -14,6 +15,22 @@ export default function EducationStep() {
     (state) => state.resume.education
   );
 
+  const [achievementInputs, setAchievementInputs] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    setAchievementInputs((prev) => {
+      const next = { ...prev };
+
+      education.forEach((edu) => {
+        if (!(edu.id in next)) {
+          next[edu.id] = edu.achievements.join(', ');
+        }
+      });
+
+      return next;
+    });
+  }, [education]);
+  
   return (
     <div className="space-y-4">
       {/* HEADER */}
@@ -118,19 +135,27 @@ export default function EducationStep() {
             {/* ACHIEVEMENTS (simple comma input style) */}
             <Input
               placeholder="Awards / Achievements (comma separated)"
-              value={edu.achievements.join(', ')}
-              onChange={(e) =>
+              value={achievementInputs[edu.id] ?? ''}
+              onChange={(e) => {
+                const value = e.target.value;
+
+                setAchievementInputs((prev) => ({
+                  ...prev,
+                  [edu.id]: value,
+                }));
+
                 dispatch(
                   updateEducation({
                     ...edu,
-                    achievements: e.target.value
+                    achievements: value
                       .split(',')
                       .map((a) => a.trim())
                       .filter(Boolean),
                   })
-                )
-              }
+                );
+              }}
             />
+
 
             {/* REMOVE */}
             <div className="flex justify-end">

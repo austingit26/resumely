@@ -7,7 +7,9 @@ import { Card } from '@/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   setSkills,
+  updateSkillCategory,
 } from '@/store/slices/resumeSlice';
+import { useEffect, useState } from 'react';
 
 export default function SkillsStep() {
   const dispatch = useAppDispatch();
@@ -16,6 +18,23 @@ export default function SkillsStep() {
     (state) => state.resume.skills
   );
 
+  
+  const [skillInputs, setSkillInputs] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    setSkillInputs((prev) => {
+      const next = { ...prev };
+
+      skills.forEach((skls) => {
+        if (!(skls.id in next)) {
+          next[skls.id] = skls.skills.join(', ');
+        }
+      });
+
+      return next;
+    });
+  }, [skills]);
+  
   // ADD CATEGORY
   const addCategory = () => {
     dispatch(
@@ -94,11 +113,26 @@ export default function SkillsStep() {
 
             {/* SKILLS INPUT */}
             <Input
-              placeholder="Skills (comma separated: React, Vue, Node)"
-              value={cat.skills.join(', ')}
-              onChange={(e) =>
-                updateSkills(cat.id, e.target.value)
-              }
+              placeholder="Skills (comma separated)"
+              value={skillInputs[cat.id] ?? ''}
+              onChange={(e) => {
+                const value = e.target.value;
+
+                setSkillInputs((prev) => ({
+                  ...prev,
+                  [cat.id]: value,
+                }));
+
+                dispatch(
+                  updateSkillCategory({
+                    ...cat,
+                    skills: value
+                      .split(',')
+                      .map((a) => a.trim())
+                      .filter(Boolean),
+                  })
+                );
+              }}
             />
 
             {/* PREVIEW CHIPS (optional but useful UX) */}

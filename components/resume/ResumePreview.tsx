@@ -1,5 +1,6 @@
 'use client';
 
+import { formatMonthYear } from '@/lib/utils';
 import { useAppSelector } from '@/store/hooks';
 
 export default function ResumePreview() {
@@ -17,6 +18,19 @@ export default function ResumePreview() {
   const renderValue = (value: any) => {
     if (value === '' || value === null || value === undefined) return '';
     return value;
+  };
+
+  const isPresent = (endDate?: string, currentlyWorking?: boolean) => {
+    if (currentlyWorking) return true;
+    if (!endDate) return true;
+
+    const end = new Date(endDate);
+    const now = new Date();
+
+    return (
+      end.getFullYear() === now.getFullYear() &&
+      end.getMonth() === now.getMonth()
+    );
   };
 
   const renderSection = (section: string) => {
@@ -89,7 +103,10 @@ export default function ResumePreview() {
                 <div className="flex justify-between text-sm">
                   <span>{exp.role}</span>
                   <span className="text-gray-600">
-                    {exp.startDate} - {exp.currentlyWorking ? 'Present' : exp.endDate}
+                    {formatMonthYear(exp.startDate)} -{' '}
+                    {isPresent(exp.endDate, exp.currentlyWorking)
+                      ? 'Present'
+                      : formatMonthYear(exp.endDate)}
                   </span>
                 </div>
 

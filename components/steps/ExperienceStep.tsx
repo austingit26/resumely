@@ -10,6 +10,7 @@ import {
   updateExperience,
   removeExperience,
 } from '@/store/slices/resumeSlice';
+import { RangeDatePicker } from '../ui/RangeDatePicker';
 
 export default function ExperienceStep() {
   const dispatch = useAppDispatch();
@@ -33,8 +34,8 @@ export default function ExperienceStep() {
                 company: '',
                 role: '',
                 location: '',
-                startDate: '',
-                endDate: '',
+                startDate: new Date().toISOString().split('T')[0],
+                endDate: new Date().toISOString().split('T')[0],
                 currentlyWorking: false,
                 bullets: [],
               })
@@ -93,50 +94,23 @@ export default function ExperienceStep() {
             />
 
             {/* DATES */}
-            <div className="grid grid-cols-2 gap-2">
-              <Input
-                placeholder="Start Date (e.g. Jan 2023)"
-                value={exp.startDate}
-                onChange={(e) =>
-                  dispatch(
-                    updateExperience({
-                      ...exp,
-                      startDate: e.target.value,
-                    })
-                  )
-                }
-              />
-
-              <Input
-                placeholder="End Date (or Present)"
-                value={exp.endDate}
-                onChange={(e) =>
-                  dispatch(
-                    updateExperience({
-                      ...exp,
-                      endDate: e.target.value,
-                    })
-                  )
-                }
-              />
-            </div>
-
-            {/* CURRENTLY WORKING */}
-            <label className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                checked={exp.currentlyWorking}
-                onChange={(e) =>
-                  dispatch(
-                    updateExperience({
-                      ...exp,
-                      currentlyWorking: e.target.checked,
-                    })
-                  )
-                }
-              />
-              Currently working here
-            </label>
+            <RangeDatePicker
+              label="Experience Duration"
+              maxDate={new Date()}
+              value={{
+                startDate: exp.startDate,
+                endDate: exp.endDate,
+              }}
+              onChange={(range) =>
+                dispatch(
+                  updateExperience({
+                    ...exp,
+                    startDate: range.startDate ?? '',
+                    endDate: range.endDate ?? '',
+                  })
+                )
+              }
+            />
 
             {/* BULLETS (simple textarea for now) */}
             <textarea

@@ -123,6 +123,14 @@ const resumeSlice = createSlice({
       saveState(state);
     },
 
+    updateSkillCategory: (state, action: PayloadAction<SkillCategory>) => {
+      state.skills = state.skills.map((item) =>
+        item.id === action.payload.id ? action.payload : item
+      );
+
+      saveState(state);
+    },
+
     /* ================= EXPERIENCE ================= */
     addExperience: (state, action: PayloadAction<ExperienceItem>) => {
       state.experience.push(action.payload);
@@ -210,6 +218,7 @@ export const {
   setPersonalInfo,
   reorderSections,
   setSkills,
+  updateSkillCategory,
   addExperience,
   updateExperience,
   removeExperience,
