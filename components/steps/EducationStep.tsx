@@ -2,11 +2,12 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { addEducation, updateEducation, removeEducation } from '@/store/slices/resumeSlice';
 import { useEffect, useState } from 'react';
+import { EducationItem } from '@/types/resume';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 
 export default function EducationStep() {
   const dispatch = useAppDispatch();
@@ -16,6 +17,44 @@ export default function EducationStep() {
   );
 
   const [achievementInputs, setAchievementInputs] = useState<Record<string, string>>({});
+
+  const currentYear = new Date().getFullYear();
+
+  const years = Array.from({ length: 101 }, (_, i) => String(currentYear - i));
+
+  function normalizeEducationYears(edu: EducationItem): EducationItem {
+    const start = edu.startYear ? Number(edu.startYear) : null;
+    const end = edu.endYear ? Number(edu.endYear) : null;
+
+    if (start && end && start > end) {
+      return {
+        ...edu,
+        endYear: "",
+      };
+    }
+
+    return edu;
+  }
+
+  const isStartDisabled = (year: string, edu: EducationItem) => {
+    const y = Number(year);
+
+    if (edu.endYear) {
+      return y > Number(edu.endYear);
+    }
+
+    return false;
+  };
+
+  const isEndDisabled = (year: string, edu: EducationItem) => {
+    const y = Number(year);
+
+    if (edu.startYear) {
+      return y < Number(edu.startYear);
+    }
+
+    return false;
+  };
 
   useEffect(() => {
     setAchievementInputs((prev) => {
@@ -105,31 +144,57 @@ export default function EducationStep() {
 
             {/* YEARS */}
             <div className="grid grid-cols-2 gap-2">
-              <Input
-                placeholder="Start Year"
+              <Select
                 value={edu.startYear}
-                onChange={(e) =>
+                onValueChange={(value) => {
                   dispatch(
-                    updateEducation({
-                      ...edu,
-                      startYear: e.target.value,
-                    })
-                  )
-                }
-              />
+                    updateEducation(
+                      normalizeEducationYears({
+                        ...edu,
+                        startYear: value,
+                      })
+                    )
+                  );
+                }}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Start Year" />
+                </SelectTrigger>
 
-              <Input
-                placeholder="End Year"
+                <SelectContent>
+                  {years.map((year) => (
+                    <SelectItem key={year} value={year} disabled={isStartDisabled(year, edu)}>
+                      {year}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Select
                 value={edu.endYear}
-                onChange={(e) =>
+                onValueChange={(value) => {
                   dispatch(
-                    updateEducation({
-                      ...edu,
-                      endYear: e.target.value,
-                    })
-                  )
-                }
-              />
+                    updateEducation(
+                      normalizeEducationYears({
+                        ...edu,
+                        endYear: value,
+                      })
+                    )
+                  );
+                }}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="End Year" />
+                </SelectTrigger>
+
+                <SelectContent>
+                  {years.map((year) => (
+                    <SelectItem key={year} value={year} disabled={isEndDisabled(year, edu)}>
+                      {year}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             {/* ACHIEVEMENTS (simple comma input style) */}

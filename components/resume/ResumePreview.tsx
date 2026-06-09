@@ -176,7 +176,7 @@ export default function ResumePreview() {
                 <span className="font-semibold">
                   {cat.category}
                 </span>
-                : {cat.skills?.join(', ')}
+                {cat.skills?.join(', ')}
               </div>
             ))}
           </div>
