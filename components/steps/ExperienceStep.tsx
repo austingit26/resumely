@@ -94,7 +94,7 @@ export default function ExperienceStep() {
             />
 
             {/* DATES */}
-            {/* <RangeDatePicker
+            <RangeDatePicker
               label="Experience Duration"
               maxDate={new Date()}
               value={{
@@ -110,7 +110,7 @@ export default function ExperienceStep() {
                   })
                 )
               }
-            /> */}
+            /> 
 
             {/* BULLETS (simple textarea for now) */}
             <textarea
