@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { format } from 'date-fns';
+import { format, parseISO, isValid } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { type DateRange } from 'react-day-picker';
 
@@ -51,9 +51,12 @@ export function RangeDatePicker({
       return value as DateRange;
     }
 
+    const from = value.startDate ? parseISO(value.startDate) : undefined;
+    const to = value.endDate ? parseISO(value.endDate) : undefined;
+
     return {
-      from: value.startDate ? new Date(value.startDate) : undefined,
-      to: value.endDate ? new Date(value.endDate) : undefined,
+      from: from && isValid(from) ? from : undefined,
+      to: to && isValid(to) ? to : undefined,
     };
   }, [value]);
 
@@ -99,8 +102,8 @@ export function RangeDatePicker({
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
 
-            {parsedValue?.from ? (
-              parsedValue.to ? (
+            {parsedValue?.from && isValid(parsedValue.from) ? (
+              parsedValue.to && isValid(parsedValue.to) ? (
                 <>
                   {format(parsedValue.from, 'LLL dd, yyyy')} -{' '}
                   {format(parsedValue.to, 'LLL dd, yyyy')}
