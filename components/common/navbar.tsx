@@ -15,15 +15,11 @@ const Navbar = ({ rightSlot }: NavbarProps) => {
       {/* LEFT: LOGO */}
       <Link href="/" className="flex items-center gap-3">
         <Image
-          src="/resume.png"
+          src="/resumely.png"
           alt="logo"
-          width={36}
-          height={36}
+          width={120}
+          height={120}
         />
-
-        <span className="text-lg font-semibold tracking-tight">
-          Resumely
-        </span>
       </Link>
 
       {/* RIGHT: SLOT */}
