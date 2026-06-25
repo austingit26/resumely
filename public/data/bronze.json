@@ -1,0 +1,21 @@
+{
+  "name": "Bronze Scholar",
+  "texture": "/assets/bronze2.jpeg",
+  "spritesheet": {
+    "cols": 4,
+    "rows": 4
+  },
+
+  "animation": {
+    "speed": 3,
+    "loop": true
+  },
+  "scale": 1.5,
+  "particles": {
+    "enabled": true,
+    "count": 40,
+    "sizeMin": 1,
+    "sizeMax": 4,
+    "speed": 1
+  }
+}

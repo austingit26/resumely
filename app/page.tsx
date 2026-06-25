@@ -12,10 +12,13 @@ import {
   FileX,
 } from 'lucide-react';
 import Link from 'next/link';
+import PixiCanvas from '../components/pixicanvas';
 
 const Landing = () => {
   return (
     <div className="min-h-screen flex flex-col select-none text-zinc-800 gap-y-12">
+      <PixiCanvas json="/data/bronze.json" />
+
       <section className="flex flex-col items-center text-center px-6 z-99">
         <div className='lg:h-[80vh] md:h-[70vh] h-[80vh] flex flex-col justify-center gap-y-12'>
           <div className='flex flex-col gap-y-4'>
